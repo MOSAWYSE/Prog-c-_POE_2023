@@ -8,7 +8,7 @@ public class recipe
     static int noOfIngredients = 0;
     static int Quanity;
     static double scale = 0;
-    static string name = "", quantity="";
+    static string name = "", quantity="", unitNo="";
 
 
     static string[] ingredientName = new string[100];//this array will be storing the ingredient name
@@ -42,7 +42,7 @@ public class recipe
             Quanity = int.Parse(quantity);
             
             try {   Console.WriteLine($"Enter the number of the unit of measurement for eg (input 4 only) instead of (4 spoons) :");
-            string unitNo = Console.ReadLine();
+             unitNo += Console.ReadLine();
             
             double unitNoDouble = int.Parse(unitNo);
 
