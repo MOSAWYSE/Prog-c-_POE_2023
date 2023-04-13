@@ -25,65 +25,56 @@ public class recipe
         Console.WriteLine("Enter the number of ingredients to be captured:");
 
         string noIngredients = Console.ReadLine();
-        noOfIngredients = int.Parse(noIngredients);
+        noOfIngredients = int.Parse(noIngredients);//string data type will be converted into an integer for the number of the ingredients
 
-        //  ingredient[0] = noIngredients;
 
         //THIS FOR LOOP WILL STORE THE DATA OF EACH INGREDIENT
-
+        Console.WriteLine("************CAPTURE NEW RECIPE DATA************");
         for (int v = 0; v < noOfIngredients; ++v)
         {
-            Console.WriteLine("");
-            Console.WriteLine($"Enter the name of the ingredient:");
-             name += Console.ReadLine();
-
-            Console.WriteLine($"Enter the quantity of {name} :");
-             quantity += Console.ReadLine();
-            Quanity = int.Parse(quantity);
             
-            try {   Console.WriteLine($"Enter the number of the unit of measurement for eg (input 4 only) instead of (4 spoons) :");
-             unitNo += Console.ReadLine();
+            Console.WriteLine($"Enter the name of the ingredient:");//this will prompt the user to input the ingredient name
+             name = Console.ReadLine();
+
+            Console.WriteLine($"Enter the quantity of {name} :");//this will prompt the user to input the quanity of the ingredient
+             quantity = Console.ReadLine();
+            Quanity = int.Parse(quantity);//string data type will be converted into an integer for the quanity
             
-            double unitNoDouble = int.Parse(unitNo);
+            try {   
+                Console.WriteLine($"Enter the number of the unit of measurement for eg (input 4 only) instead of (4 spoons) :");
+             unitNo = Console.ReadLine();
+            
+            double unitNoDouble = double.Parse(unitNo);//string data type is being converted to a double
 
 
-            Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");
+            Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");//this will prompt the user to input unit of measurement that will be used
             string unit = Console.ReadLine();
 
-            //ingredient[v+1] = name;//this will store the ingredient name on the first position of the array
-            //ingredient[v+2] = quantity;//the quanity will be stored on the second position
-            //ingredient[v+3] = unit;
+    
+            ingredientName[v] = name;//this will store the ingredient name on the first position of the array
+            ingredientQuantity[v] = Quanity;//the quanity will be stored on the second position
+            noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
+            ingredientUnit[v] = unit;//this will be the unit of measurement used eg spoons, ml and etc.
 
-            ingredientName[v] += name;//this will store the ingredient name on the first position of the array
-            ingredientQuantity[v] += Quanity;//the quanity will be stored on the second position
-            noOfMeasurement[v] += unitNoDouble;//this will be the number stored of the unit of measurement
-            ingredientUnit[v] += unit;//this will be the unit of measurement used eg spoons, ml and etc.
+                Console.WriteLine("Enter the number of steps of the recipe:");
+                string steps = Console.ReadLine();
+                noSteps = int.Parse(steps);//this will be the number of steps of the recipe
+               
 
+                //this for loop will iterate the number of steps until there are no steps available
+                for (int b = 0; b < noSteps; b++)
+                {
+                    Console.WriteLine($"Enter the description of step {b + 1} :");
+                    string stepInfo = Console.ReadLine();
+                    stepDescription[b] = stepInfo;
+
+                }
 
             }
             catch (Exception e) { Console.WriteLine("An exception has occured. " + e.Message); }
 
 
-
         }
-
-
-
-        Console.WriteLine("Enter the number of steps of the recipe:");
-        string steps = Console.ReadLine();
-        noSteps += int.Parse(steps);//this will be the number of steps of the recipe
-        stepDescription[0] = steps;
-
-
-        //this for loop will iterate the number of steps until there are no steps available
-        for (int b = 0; b < noSteps; b++)
-        {
-            Console.WriteLine($"Enter the description of step {b + 1} :");
-            string stepInfo = Console.ReadLine();
-            stepDescription[b + 1] = stepInfo;
-
-        }
-
 
 
 
@@ -92,7 +83,6 @@ public class recipe
     static void printRecipe()
     {
         Console.WriteLine($"\n*********RECIPE RESULTS*************");
-        // Console.WriteLine($"\nNumber of ingredients: {ingredient[0]} \nIngredient name : {ingredient[1]} \nIngredient quantity : {ingredient[2]} \nIngredient unit of measurement : {ingredient[3]}");
 
         Console.WriteLine($"\nNumber of ingredients : {noOfIngredients}");
 
@@ -103,49 +93,43 @@ public class recipe
 
 
         //use the number of steps to display the steps and a for loop
-
-        Console.WriteLine($"\nNumber of steps : {stepDescription[0]}");
+        //this for loop will iterate through the array
+        Console.WriteLine($"\nNumber of steps : {noSteps}");
         for (int i = 0; i < noSteps; i++)
         {
-            Console.WriteLine($"\nStep {i + 1} description :{stepDescription[i + 1]}. ");
+            Console.WriteLine($"\nStep {i+1} description :{stepDescription[i]}. ");//this will display the step description
         }
-
-
 
 
     }
 
+    //this method will be used to scale the recipe of the captured ingredient
     static void scaleRecipe(double scale)
     {
-        double scaledQuanity;
-
-
+        double scaledQuantity;//this variable will be storing the scaled quanity temporary
 
         for (int i = 0; i < noOfIngredients; ++i)
         {
-            scaledQuanity = noOfMeasurement[i] * scale;
-            // Console.WriteLine($"new unit is >> {scaledQuanity}");
-            noOfMeasurement[i] = scaledQuanity;
+            scaledQuantity = noOfMeasurement[i] * scale;//this is the formula used to calculate the new scaled quantity with the scale in the argument
+            noOfMeasurement[i] = scaledQuantity;//the calculated scaled quantity will be stored in a array
         }
-
-
 
     }
 
     static void resetQuanity(double scale)
-    {//THIS METHOD WILL BE RESITING THE QUANITIES OF THE INGREDIENT
-        double resetQuanity;
+    {//THIS METHOD WILL BE RESETING THE QUANITIES OF THE INGREDIENT
+        double resetQuantity;//this variable will be storing the reseted quantities
 
         for (int i = 0; i < noOfIngredients; ++i)
         {
-            resetQuanity = noOfMeasurement[i] / scale;
-            noOfMeasurement[i] = resetQuanity;
+            resetQuantity = noOfMeasurement[i] / scale;
+            noOfMeasurement[i] = resetQuantity;
         }
 
 
     }
 
-
+    //This method will be clearing the stored information on the arrays/tempData
     static void clearData()
     {
         //this for loop will set all the array data to default values to clear all the arrays
@@ -178,15 +162,23 @@ public class recipe
 
     static void startUpMenu()
     {
-        Console.WriteLine("\n**************RECIPE CONSOLE APP*************\n1.Capture new recipe data.\n2.Display recipe steps. \n3.Scale the recipe. \n4.Reset quanities to original values.\n5.Clear the recipe data.\n6.Exit Application.\nYour selection :");
+        Console.WriteLine("\n**************RECIPE CONSOLE APP*************\n1.Capture new recipe data.\n2.Display recipe data. \n3.Scale the recipe. \n4.Reset recipe quanities to original values.\n5.Clear the recipe data.\n6.Exit Application.\nYour selection :");
         string option = Console.ReadLine();
 
         switch (option)
         {
             case "1":
                 {
-                    captureInfo();
-                    startUpMenu();
+                    try 
+                    {
+                        captureInfo();
+                        startUpMenu();
+                    }
+                    catch(Exception e) 
+                    {
+                        Console.WriteLine("An exception has occured while capturing recipe data. "+e.Message); 
+                    }
+                   
                     break;
                 }//store recipe data
             case "2":
@@ -197,11 +189,18 @@ public class recipe
                 }    //display recipe steps
             case "3":
                 {
-                    Console.WriteLine("Enter your scale factor number : ");
+                    try
+                    {
+                    Console.WriteLine("Enter your scale factor number : ");//this will  be prompting the user to input the scale factor to be used
                     string newScale = Console.ReadLine();
-                     scale = int.Parse(newScale);
+                     scale = double.Parse(newScale);
                     scaleRecipe(scale);
                     startUpMenu();
+                    }
+                    catch (Exception ex) 
+                    {
+                    Console.WriteLine("An exception has occured please check your scale factor number." + ex.Message);
+                    }
 
                     break;
                 }    //scale the recipe 
