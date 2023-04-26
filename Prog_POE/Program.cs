@@ -3,7 +3,7 @@ using System.Text;
 using static System.Formats.Asn1.AsnWriter;
 
  class recipe
-{
+{//AUTHOR: Mosa Tshikane (ST10036192)
 
   
      int noOfIngredients = 0, Quanity, noSteps = 0;
@@ -165,7 +165,8 @@ using static System.Formats.Asn1.AsnWriter;
 
 
 public class displayRecipeInfo 
-{
+{//author: Mosa Tshikane(ST10036192)
+ 
      static readonly recipe obj = new recipe();//object for recipe
     static double scale;
 
