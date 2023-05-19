@@ -167,6 +167,7 @@ using static System.Formats.Asn1.AsnWriter;
 public class displayRecipeInfo 
 {
      static readonly recipe obj = new recipe();//object for recipe
+    private static List<recipe> newRecipe =new List<recipe>();//this will be the recipe list that will be storing  the recipe data
     static double scale;
 
 
@@ -185,7 +186,11 @@ public class displayRecipeInfo
                     try
                     {
                         obj.captureInfo();//capture recipe data
-                        startUpMenu();//display main menu
+                        Console.WriteLine("Do you want to add more recipes?");
+                        string choice = Console.ReadLine();
+                        recipePrompt(choice);
+                       
+                      
                     }
                     catch (Exception e)
                     {
@@ -258,13 +263,59 @@ public class displayRecipeInfo
                 {
                     System.Environment.Exit(0);//Exit app
                     break;
+                 
                 }
+
+
+
         }
 
      
 
     }
 
+    public static void recipePrompt(string prompt) 
+    {
+        //recipe object
+         recipe obj = new recipe();
+        
+
+        switch (prompt) 
+        {
+            case "yes": 
+                {
+                    //this will allow users to capture another recipe data
+                    try
+                    {
+                        ;//instantiating a the recipe class
+                        obj.captureInfo();
+                        newRecipe.Add(obj);//Add the recipe data to the array list
+                        startUpMenu();
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("An exception has occured. " + e.Message);
+                    }
+                    break;
+                }
+
+                case "no": 
+                {
+                   //display start up menu
+                    startUpMenu();
+                    break;
+                }
+                 
+                    default: 
+                {
+                    Console.WriteLine("Please enter a yes or no answer.");
+                    break; 
+                }
+                    
+        }   
+
+    }
 
     public static void Main(string[] args)
     {
