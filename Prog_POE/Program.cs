@@ -36,34 +36,28 @@ using static System.Formats.Asn1.AsnWriter;
 
                     Console.WriteLine($"Enter the name of the ingredient:");//this will prompt the user to input the ingredient name
                     name = Console.ReadLine();
-                ingredientName[v] = name;//this will store the ingredient name on the first position of the array
+                    ingredientName[v] = name;//this will store the ingredient name on the first position of the array
 
-                Console.WriteLine($"Enter the quantity of {name} :");//this will prompt the user to input the quanity of the ingredient
+                    Console.WriteLine($"Enter the quantity of {name} :");//this will prompt the user to input the quanity of the ingredient
                     quantity = Console.ReadLine();
                     Quanity = int.Parse(quantity);//string data type will be converted into an integer for the quanity
                         ingredientQuantity[v] = Quanity;//the quanity will be stored on the second position
 
 
-                Console.WriteLine($"Enter the number of the unit of measurement for eg (numbers only are allowed) instead of (4 spoons) :");
+                    Console.WriteLine($"Enter the number of the unit of measurement for eg (numbers only are allowed) instead of (4 spoons) :");
                     unitNo = Console.ReadLine();
                     double unitNoDouble = double.Parse(unitNo);//string data type is being converted to a double
-                noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
+                    noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
 
 
-                Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");//this will prompt the user to input unit of measurement that will be used
+                    Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");//this will prompt the user to input unit of measurement that will be used
                     string unit = Console.ReadLine();
                     ingredientUnit[v] = unit;//this will be the unit of measurement used eg spoons, ml and etc.
 
 
             }
 
-        }
-        catch (Exception e) 
-        {
-        Console.WriteLine("An exception has occured while capturing data. "+ e.Message);
-        }
-        finally 
-        {
+            //steps data
             Console.WriteLine("Enter the number of steps of the recipe:");
             string steps = Console.ReadLine();
             noSteps = int.Parse(steps);//this will be the number of steps of the recipe
@@ -77,7 +71,15 @@ using static System.Formats.Asn1.AsnWriter;
 
             }
 
+
+
+
         }
+        catch (Exception e) 
+        {
+        Console.WriteLine("An exception has occured while capturing data. "+ e.Message);
+        }
+      
 
 
     }
@@ -99,11 +101,8 @@ using static System.Formats.Asn1.AsnWriter;
         Console.WriteLine($"\nNumber of steps : {noSteps}");
         for (int i = 0; i < noSteps; i++)
         {
-            Console.WriteLine($"\nStep {i+1} description :{stepDescription[i]}. ");//this will display the step description
+            Console.WriteLine($"\nStep {i + 1} description :{stepDescription[i]}. ");//this will display the step description
         }
-
-
-
 
 
     }
@@ -161,6 +160,13 @@ using static System.Formats.Asn1.AsnWriter;
 
     }
 
+    //this method will get the first recipe name
+    public string getName() 
+    { 
+        return ingredientName[0]; 
+    }
+
+
 
 }
 
@@ -168,17 +174,61 @@ using static System.Formats.Asn1.AsnWriter;
 public class displayRecipeInfo 
 {//author: Mosa Tshikane(ST10036192)
  
-     static readonly recipe obj = new recipe();//object for recipe
+    
     private static List<recipe> newRecipe =new List<recipe>();//this will be the recipe list that will be storing  the recipe data
     static double scale;
 
+
+    //this  method will be sorting the recipes 
+    static void displayRecipeAlphabetically()
+    {
+        Console.WriteLine("\n********RECIPES IN ALPHABETICAL ORDER^^^^^^");
+        List<recipe> sortedRecipes = newRecipe.OrderBy(recipe => recipe.getName()).ToList();
+        
+        /*
+        //this foreach loop will iterate through the sorted array list
+        foreach (recipe recipe in sortedRecipes)
+        {
+            Console.WriteLine(recipe.getName());
+        }
+        */
+
+        //this for lopp will print out the sorted recipe names
+        for(int i = 0; i < sortedRecipes.Count; i++) 
+        {
+            Console.Write($"{i + 1}. {sortedRecipes[i].getName()}");  
+        }
+
+        Console.WriteLine("Enter the number of the recipe to display:");
+        string input = Console.ReadLine();
+
+        if(int.TryParse(input, out int recipeNumber)) 
+        {
+            if (recipeNumber >= 1 && recipeNumber <= sortedRecipes.Count)
+            {
+                recipe selectedRecipe = sortedRecipes[recipeNumber - 1];
+                selectedRecipe.printRecipe();
+            }
+            else 
+            {
+                Console.WriteLine("Please enter a valid recipe number.");
+            }
+
+        }
+        else 
+        {
+            Console.WriteLine("Please enter a valid number.");
+        }
+
+
+    }
 
     //this method will be having the app features
     static void startUpMenu()
     {
 
 
-        Console.WriteLine("\n**************RECIPE CONSOLE APP*************\n1.Capture new recipe data.\n2.Display recipe data. \n3.Scale the recipe. \n4.Reset recipe quanities to original values.\n5.Clear the recipe data.\n6.Exit Application.\nYour selection :");
+        Console.WriteLine("\n**************RECIPE CONSOLE APP*************\n1.Capture new recipe data.\n2.Display recipe data. \n3.Scale the recipe. \n4.Reset recipe quanities to original values.\n5.Clear the recipe data.\n6.Display recipe data alphabetically.\n7.Exit the application.\nYour selection :");
         string option = Console.ReadLine();//this string will be capturing the function that the user wants to use
 
         switch (option)
@@ -187,6 +237,7 @@ public class displayRecipeInfo
                 {
                     try
                     {
+                        recipe obj = new recipe();//object for recipe
                         obj.captureInfo();//capture recipe data
                         newRecipe.Add(obj);//ADDING THE RECIPE DATA TO THE LIST
                         Console.WriteLine("Do you want to add more recipes?(YES/NO)");
@@ -266,20 +317,28 @@ public class displayRecipeInfo
                     try
                     {
                         newRecipe.Clear();//this will clear the recipe data stored in the array list
+                        Console.WriteLine("The recipe data was successfully cleared.");
                         startUpMenu();
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("An exception has occured. " + e.Message);
+                        Console.WriteLine("An exception has occured while clearing recipe data. " + e.Message);
                     }
                     break;
                 } //clear the recipe data 
 
             case "6":
                 {
-                    System.Environment.Exit(0);//Exit app
+                    //this method will display the recipes alphabetically
+                    displayRecipeAlphabetically();
+                    startUpMenu();
                     break;
                  
+                }
+            case "7":
+                {
+                    System.Environment.Exit(0);//Exit app
+                    break;
                 }
 
             default:
@@ -308,7 +367,7 @@ public class displayRecipeInfo
                     //this will allow users to capture another recipe data
                     try
                     {
-                        ;//instantiating a the recipe class
+                        recipe obj = new recipe();//instantiating a the recipe class
                         obj.captureInfo();
                         newRecipe.Add(obj);//Add the recipe data to the array list
                         startUpMenu();
@@ -334,7 +393,9 @@ public class displayRecipeInfo
                     break; 
                 }
                     
-        }   
+        }  
+        
+
 
     }
 
