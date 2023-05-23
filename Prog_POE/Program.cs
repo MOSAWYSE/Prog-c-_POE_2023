@@ -23,7 +23,7 @@ using static System.Formats.Asn1.AsnWriter;
         try { 
 
   
-            Console.WriteLine("Enter the number of ingredients to be captured:");
+                Console.WriteLine("Enter the number of ingredients to be captured:");
 
                 string noIngredients = Console.ReadLine();
                 noOfIngredients = int.Parse(noIngredients);//string data type will be converted into an integer for the number of the ingredients
@@ -36,28 +36,26 @@ using static System.Formats.Asn1.AsnWriter;
 
                     Console.WriteLine($"Enter the name of the ingredient:");//this will prompt the user to input the ingredient name
                     name = Console.ReadLine();
+                ingredientName[v] = name;//this will store the ingredient name on the first position of the array
 
-                    Console.WriteLine($"Enter the quantity of {name} :");//this will prompt the user to input the quanity of the ingredient
+                Console.WriteLine($"Enter the quantity of {name} :");//this will prompt the user to input the quanity of the ingredient
                     quantity = Console.ReadLine();
                     Quanity = int.Parse(quantity);//string data type will be converted into an integer for the quanity
+                        ingredientQuantity[v] = Quanity;//the quanity will be stored on the second position
 
 
-                    Console.WriteLine($"Enter the number of the unit of measurement for eg (numbers only are allowed) instead of (4 spoons) :");
+                Console.WriteLine($"Enter the number of the unit of measurement for eg (numbers only are allowed) instead of (4 spoons) :");
                     unitNo = Console.ReadLine();
-
                     double unitNoDouble = double.Parse(unitNo);//string data type is being converted to a double
+                noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
 
 
-                    Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");//this will prompt the user to input unit of measurement that will be used
+                Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");//this will prompt the user to input unit of measurement that will be used
                     string unit = Console.ReadLine();
-
-
-                    ingredientName[v] = name;//this will store the ingredient name on the first position of the array
-                    ingredientQuantity[v] = Quanity;//the quanity will be stored on the second position
-                    noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
                     ingredientUnit[v] = unit;//this will be the unit of measurement used eg spoons, ml and etc.
 
-                }
+
+            }
 
         }
         catch (Exception e) 
@@ -82,12 +80,12 @@ using static System.Formats.Asn1.AsnWriter;
         }
 
 
-       
-
     }
 
      public void printRecipe()
     {
+       
+
         Console.WriteLine($"\n*********RECIPE RESULTS*************");
         Console.WriteLine($"\nNumber of ingredients : {noOfIngredients}");
 
@@ -103,6 +101,9 @@ using static System.Formats.Asn1.AsnWriter;
         {
             Console.WriteLine($"\nStep {i+1} description :{stepDescription[i]}. ");//this will display the step description
         }
+
+
+
 
 
     }
@@ -187,7 +188,8 @@ public class displayRecipeInfo
                     try
                     {
                         obj.captureInfo();//capture recipe data
-                        Console.WriteLine("Do you want to add more recipes?");
+                        newRecipe.Add(obj);//ADDING THE RECIPE DATA TO THE LIST
+                        Console.WriteLine("Do you want to add more recipes?(YES/NO)");
                         string choice = Console.ReadLine();
                         recipePrompt(choice);
                        
@@ -203,13 +205,17 @@ public class displayRecipeInfo
             case "2":
                 {
                     try
-                    {
-                        obj.printRecipe();//print recipe data
+                    {//this for each loop will iterate through the newRecipe array list to print all the recipe details
+                        foreach (recipe myRecipe in newRecipe)
+                        {
+                            myRecipe.printRecipe();//print each recipe data
+                        }
+                        
                         startUpMenu();//display main menu
                     }
                     catch (Exception er)
                     {
-                        Console.WriteLine("An exception has occured while printing data. " + er.Message);
+                        Console.WriteLine("An exception has occured while printing recipe data. " + er.Message);
                     }
                     break;
                 }    //display recipe steps
@@ -219,8 +225,14 @@ public class displayRecipeInfo
                     {
                         Console.WriteLine("Enter your scale factor number : ");//this will  be prompting the user to input the scale factor to be used
                         string newScale = Console.ReadLine();
-                        scale = double.Parse(newScale);
-                        obj.scaleRecipe(scale);//scale recipe unit of measurement  
+
+                            scale = double.Parse(newScale);
+                            //this foreach loop will scale the recipes stored in the array list
+                                foreach (recipe myRecipe in newRecipe)
+                                {
+                                    myRecipe.scaleRecipe(scale);//scale recipe unit of measurement  
+                                }
+
                         startUpMenu();//display menu
                     }
                     catch (IOException ex)
@@ -235,7 +247,10 @@ public class displayRecipeInfo
                 {
                     try
                     {
-                        obj.resetQuanity(scale);//reset recipe unit of measurement
+                        foreach (recipe myRecipe in newRecipe)
+                        {
+                            myRecipe.resetQuanity(scale);//reset recipe unit of measurement
+                        }
                         startUpMenu();//display menu
                     }
                     catch (IOException e)
@@ -250,7 +265,7 @@ public class displayRecipeInfo
                 {
                     try
                     {
-                        obj.clearData();//set default values
+                        newRecipe.Clear();//this will clear the recipe data stored in the array list
                         startUpMenu();
                     }
                     catch (Exception e)
@@ -267,6 +282,12 @@ public class displayRecipeInfo
                  
                 }
 
+            default:
+                {
+                    Console.WriteLine("Please enter a valid option.");
+                    startUpMenu();
+                    break;
+                }
 
 
         }
@@ -277,11 +298,10 @@ public class displayRecipeInfo
 
     public static void recipePrompt(string prompt) 
     {
-        //recipe object
-         recipe obj = new recipe();
-        
+      
+       
 
-        switch (prompt) 
+        switch (prompt.ToLower())
         {
             case "yes": 
                 {
