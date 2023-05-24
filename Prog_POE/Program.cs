@@ -10,31 +10,35 @@ using static System.Formats.Asn1.AsnWriter;
      double scale;
      string name = "", quantity="", unitNo="";
 
-
-     string[] ingredientName = new string[100];//this array will be storing the ingredient name
-     string[] stepDescription = new string[100];//this will be storing the information of each step description
-     int[] ingredientQuantity = new int[100];//this array will be storing the quanity of the ingredient
-     double[] noOfMeasurement = new double[100];//this array will be storing the number of the unit of measurement               
-     string[] ingredientUnit = new string[100];//this array will be storing the name of the unit of measurement eg.Tablespoons, litres ,Cups and etc
+    string[] recipeNames = new string[10000];//this array will be storing the recipe names
+     string[] ingredientName = new string[10000];//this array will be storing the ingredient name
+     string[] stepDescription = new string[10000];//this will be storing the information of each step description
+     int[] ingredientQuantity = new int[10000];//this array will be storing the quanity of the ingredient
+     double[] noOfMeasurement = new double[10000];//this array will be storing the number of the unit of measurement               
+     string[] ingredientUnit = new string[10000];//this array will be storing the name of the unit of measurement eg.Tablespoons, litres ,Cups and etc
 
 
     public void captureInfo()
     {
-        try { 
+        try {
 
-  
-                Console.WriteLine("Enter the number of ingredients to be captured:");
+            
+            Console.WriteLine("************CAPTURE NEW RECIPE DATA************");
+
+            Console.WriteLine("Enter your recipe name:");
+            string recipeName = Console.ReadLine();
+
+            Console.WriteLine("Enter the number of ingredients to be captured:");
 
                 string noIngredients = Console.ReadLine();
                 noOfIngredients = int.Parse(noIngredients);//string data type will be converted into an integer for the number of the ingredients
 
 
-                //THIS FOR LOOP WILL STORE THE DATA OF EACH INGREDIENT
-                Console.WriteLine("************CAPTURE NEW RECIPE DATA************");
-                for (int v = 0; v < noOfIngredients; ++v)
+            //THIS FOR LOOP WILL STORE THE DATA OF EACH INGREDIENT
+            for (int v = 0; v < noOfIngredients; ++v)
                 {
 
-                    Console.WriteLine($"Enter the name of the ingredient:");//this will prompt the user to input the ingredient name
+                    Console.WriteLine($"Enter the name of the ({noOfIngredients}) ingredient:");//this will prompt the user to input the ingredient name
                     name = Console.ReadLine();
                     ingredientName[v] = name;//this will store the ingredient name on the first position of the array
 
@@ -44,7 +48,7 @@ using static System.Formats.Asn1.AsnWriter;
                         ingredientQuantity[v] = Quanity;//the quanity will be stored on the second position
 
 
-                    Console.WriteLine($"Enter the number of the unit of measurement for eg (numbers only are allowed) instead of (4 spoons) :");
+                    Console.WriteLine($"Enter the number of the unit of measurement eg (4) instead of (4 spoons) :");
                     unitNo = Console.ReadLine();
                     double unitNoDouble = double.Parse(unitNo);//string data type is being converted to a double
                     noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
@@ -68,7 +72,7 @@ using static System.Formats.Asn1.AsnWriter;
                 Console.WriteLine($"Enter the description of step {b + 1} :");//this will be printing out the number of step description to be entered
                 string stepInfo = Console.ReadLine();
                 stepDescription[b] = stepInfo;//stepInfo data is store into the step description array
-
+                recipeNames[b] = recipeName;//recipe name will be stored after the steps
             }
 
 
@@ -77,7 +81,7 @@ using static System.Formats.Asn1.AsnWriter;
         }
         catch (Exception e) 
         {
-        Console.WriteLine("An exception has occured while capturing data. "+ e.Message);
+        Console.WriteLine("An exception has occured while capturing recipe data. "+ e.Message);
         }
       
 
@@ -163,7 +167,7 @@ using static System.Formats.Asn1.AsnWriter;
     //this method will get the first recipe name
     public string getName() 
     { 
-        return ingredientName[0]; 
+        return recipeNames[0]; 
     }
 
 
@@ -175,7 +179,7 @@ public class displayRecipeInfo
 {//author: Mosa Tshikane(ST10036192)
  
     
-    private static List<recipe> newRecipe =new List<recipe>();//this will be the recipe list that will be storing  the recipe data
+    private static List<recipe> newRecipe = new List<recipe>();//this will be the recipe list that will be storing  the recipe data
     static double scale;
 
 
@@ -196,13 +200,13 @@ public class displayRecipeInfo
         //this for lopp will print out the sorted recipe names
         for(int i = 0; i < sortedRecipes.Count; i++) 
         {
-            Console.Write($"{i + 1}. {sortedRecipes[i].getName()}");  
+            Console.Write($"{i + 1}. {sortedRecipes[i].getName()}\n");  
         }
 
-        Console.WriteLine("Enter the number of the recipe to display:");
-        string input = Console.ReadLine();
+        Console.WriteLine("\nEnter the number of the recipe to display:");
+        string selection = Console.ReadLine();
 
-        if(int.TryParse(input, out int recipeNumber)) 
+        if(int.TryParse(selection, out int recipeNumber)) 
         {
             if (recipeNumber >= 1 && recipeNumber <= sortedRecipes.Count)
             {
