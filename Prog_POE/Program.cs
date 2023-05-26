@@ -13,6 +13,17 @@ namespace Prog_POE
 
             displayRecipeInfo.startUpMenu();//this will print out the menu
 
+        if(int.TryParse(input, out int recipeNumber)) 
+        {
+            if (recipeNumber >= 1 && recipeNumber <= sortedRecipes.Count)
+            {
+                recipe selectedRecipe = sortedRecipes[recipeNumber - 1];
+                selectedRecipe.printRecipe();
+            }
+            else 
+            {
+                Console.WriteLine("Please enter a valid recipe number.");
+            }
 
         }
     }
