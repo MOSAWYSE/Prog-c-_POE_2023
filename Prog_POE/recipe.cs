@@ -19,6 +19,7 @@ namespace Prog_POE
         double[] noOfMeasurement = new double[10000];//this array will be storing the number of the unit of measurement               
         string[] ingredientUnit = new string[10000];//this array will be storing the name of the unit of measurement eg.Tablespoons, litres ,Cups and etc
 
+        ingredientCalories calories1 = new ingredientCalories();
 
         public void captureInfo()
         {
@@ -59,9 +60,12 @@ namespace Prog_POE
                     string unit = Console.ReadLine();
                     ingredientUnit[v] = unit;//this will be the unit of measurement used eg spoons, ml and etc.
 
+                   
                     //capture the ingredient calories here
+                    calories1.captureCalories();
 
                     //capture the ingredient food group here
+                    calories1.captureFoodGroup();
 
 
 
@@ -96,13 +100,15 @@ namespace Prog_POE
         public void printRecipe()
         {
 
+            ingredientCalories obj4 = new ingredientCalories();
+
 
             Console.WriteLine($"\n*********RECIPE RESULTS*************");
             Console.WriteLine($"\nRecipe Name >> {recipeName} \nNumber of ingredients : {noOfIngredients}");
 
             for (int i = 0; i < noOfIngredients; i++)
             {
-                Console.WriteLine($"\nIngredient name: {ingredientName[i]} \nIngredient quantity : {ingredientQuantity[i]}\nIngredient unit of measurement : {noOfMeasurement[i]} {ingredientUnit[i]}");
+                Console.WriteLine($"\nIngredient name: {ingredientName[i]} \nIngredient quantity : {ingredientQuantity[i]}\nIngredient unit of measurement : {noOfMeasurement[i]} {ingredientUnit[i]}\nIngredient calories:{calories1.totalCalories1()}\nIngredient food group:{calories1.getFoodGroup()}");
             }
 
             //use the number of steps to display the steps and a for loop
