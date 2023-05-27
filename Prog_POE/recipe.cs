@@ -12,14 +12,14 @@ namespace Prog_POE
         double scale;
         string name = "", quantity = "", unitNo = "", recipeName="";
 
-        string[] recipeNames = new string[10000];//this array will be storing the recipe names
-        string[] ingredientName = new string[10000];//this array will be storing the ingredient name
-        string[] stepDescription = new string[10000];//this will be storing the information of each step description
-        int[] ingredientQuantity = new int[10000];//this array will be storing the quanity of the ingredient
-        double[] noOfMeasurement = new double[10000];//this array will be storing the number of the unit of measurement               
-        string[] ingredientUnit = new string[10000];//this array will be storing the name of the unit of measurement eg.Tablespoons, litres ,Cups and etc
+        List<string> recipeNames = new List<string>();//this list will be storing the recipe names
+        List<string> ingredientName = new List<string>();//this list will be storing the ingredients names
+        List<string> stepDescription = new List<string>();//this list will be storing the steps descriptions
+        List<string> ingredientUnit = new List<string>();//this list will be storing the name of the ingredient unit of measurement
+        List<int> ingredientQuantity = new List<int>();//this list will be storing the ingredient quantity
+        List<double> noOfMeasurement = new List<double>();//this list will be storing the number of the unit of measurement
 
-        ingredientCalories calories1 = new ingredientCalories();
+        ingredientCalories caloriesClass = new ingredientCalories();
 
         public void captureInfo()
         {
@@ -29,7 +29,7 @@ namespace Prog_POE
                 Console.WriteLine("************CAPTURE NEW RECIPE DATA************");
                 Console.WriteLine("Enter your recipe name:");
                  recipeName = Console.ReadLine();
-
+                    recipeNames.Add(recipeName);//recipe name will be stored on the list
 
                 Console.WriteLine("Enter the number of ingredients to be captured:");
 
@@ -42,34 +42,31 @@ namespace Prog_POE
 
                     Console.WriteLine($"Enter the name of the ({v + 1}) ingredient:");//this will prompt the user to input the ingredient name
                     name = Console.ReadLine();
-                    ingredientName[v] = name;//this will store the ingredient name on the first position of the array
+                    ingredientName.Add(name);//this will store the ingredient name on the first position of the array
 
                     Console.WriteLine($"Enter the quantity of {name} :");//this will prompt the user to input the quanity of the ingredient
                     quantity = Console.ReadLine();
                     Quanity = int.Parse(quantity);//string data type will be converted into an integer for the quanity
-                    ingredientQuantity[v] = Quanity;//the quanity will be stored on the second position
+                    ingredientQuantity.Add(Quanity);//the quanity will be stored on the ingredient quantity list
 
 
                     Console.WriteLine($"Enter the number of the unit of measurement for eg (4) instead of (4 spoons) :");
                     unitNo = Console.ReadLine();
                     double unitNoDouble = double.Parse(unitNo);//string data type is being converted to a double
-                    noOfMeasurement[v] = unitNoDouble;//this will be the number stored of the unit of measurement
+                    noOfMeasurement.Add(unitNoDouble);//this will be the number stored of the unit of measurement
 
 
                     Console.WriteLine($"Enter the unit of measurement to be used eg(spoons, Cups, ml and etc.");//this will prompt the user to input unit of measurement that will be used
                     string unit = Console.ReadLine();
-                    ingredientUnit[v] = unit;//this will be the unit of measurement used eg spoons, ml and etc.
+                    ingredientUnit.Add(unit);//this will be the unit of measurement used eg spoons, ml and etc.
 
                    
                     //capture the ingredient calories here
-                    calories1.captureCalories();
+                    caloriesClass.captureCalories();
 
                     //capture the ingredient food group here
-                    calories1.captureFoodGroup();
+                    caloriesClass.captureFoodGroup();
 
-
-
-                    recipeNames[v] = recipeName;//the recipe name will be stored 
                 }
 
                 //steps data
@@ -82,7 +79,7 @@ namespace Prog_POE
                 {
                     Console.WriteLine($"Enter the description of step {b + 1} :");//this will be printing out the number of step description to be entered
                     string stepInfo = Console.ReadLine();
-                    stepDescription[b] = stepInfo;//stepInfo data is store into the step description array
+                    stepDescription.Add(stepInfo);//stepInfo data is store into the step description list
 
                 }
 
@@ -100,15 +97,14 @@ namespace Prog_POE
         public void printRecipe()
         {
 
-            ingredientCalories obj4 = new ingredientCalories();
-
+        
 
             Console.WriteLine($"\n*********RECIPE RESULTS*************");
             Console.WriteLine($"\nRecipe Name >> {recipeName} \nNumber of ingredients : {noOfIngredients}");
 
             for (int i = 0; i < noOfIngredients; i++)
             {
-                Console.WriteLine($"\nIngredient name: {ingredientName[i]} \nIngredient quantity : {ingredientQuantity[i]}\nIngredient unit of measurement : {noOfMeasurement[i]} {ingredientUnit[i]}\nIngredient calories:{calories1.totalCalories1()}\nIngredient food group:{calories1.getFoodGroup()}");
+                Console.WriteLine($"\nIngredient name: {ingredientName.ElementAt(i)} \nIngredient quantity : {ingredientQuantity.ElementAt(i)}\nIngredient unit of measurement : {noOfMeasurement.ElementAt(i)} {ingredientUnit.ElementAt(i)}\nIngredient calories:{caloriesClass.getCalories(i)}\nIngredient food group:{caloriesClass.getFoodGroup(i)}");
             }
 
             //use the number of steps to display the steps and a for loop
@@ -116,7 +112,7 @@ namespace Prog_POE
             Console.WriteLine($"\nNumber of steps : {noSteps}");
             for (int i = 0; i < noSteps; i++)
             {
-                Console.WriteLine($"\nStep {i + 1} description :{stepDescription[i]}. ");//this will display the step description
+                Console.WriteLine($"\nStep {i + 1} description :{stepDescription.ElementAt(i)}. ");//this will display the step description
             }
 
 

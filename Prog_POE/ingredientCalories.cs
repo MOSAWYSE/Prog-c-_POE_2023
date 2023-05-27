@@ -29,9 +29,14 @@ namespace Prog_POE
             
         }
 
-        public string getFoodGroup() 
+        public string getFoodGroup(int v) 
         {
-            return ingredientFoodGroup.First();//this will return the first element on the ingredientFoodGroup list
+            return ingredientFoodGroup.ElementAt(v);//this will return the specified element on the ingredientFoodGroup list
+        }
+
+        public double getCalories(int v) 
+        {
+        return storedCalories.ElementAt(v);//THIS retrieve the stored calories on the list
         }
 
 
