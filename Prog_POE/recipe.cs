@@ -107,6 +107,9 @@ namespace Prog_POE
                 Console.WriteLine($"\nIngredient name: {ingredientName.ElementAt(i)} \nIngredient quantity : {ingredientQuantity.ElementAt(i)}\nIngredient unit of measurement : {noOfMeasurement.ElementAt(i)} {ingredientUnit.ElementAt(i)}\nIngredient calories:{caloriesClass.getCalories(i)}\nIngredient food group:{caloriesClass.getFoodGroup(i)}");
             }
 
+            //print total recipe calories
+            Console.WriteLine($"\nTotal recipe calories: {caloriesClass.totalCalories1()}   (this is the total units of energy that the the recipe provides.)");
+
             //use the number of steps to display the steps and a for loop
             //this for loop will iterate through the array
             Console.WriteLine($"\nNumber of steps : {noSteps}");
@@ -125,10 +128,10 @@ namespace Prog_POE
             int newQuantity;
             for (int i = 0; i < noOfIngredients; ++i)
             {
-                scaledQuantity = noOfMeasurement[i] * scale;//this is the formula used to calculate the new scaled quantity with the scale in the argument
-                newQuantity = (int)(ingredientQuantity[i] * scale);
-                noOfMeasurement[i] = scaledQuantity;//the calculated scaled quantity will be stored in a array
-                ingredientQuantity[i] = newQuantity;
+                scaledQuantity = noOfMeasurement.ElementAt(i) * scale;//this is the formula used to calculate the new scaled quantity with the scale in the argument
+                newQuantity = (int)(ingredientQuantity.ElementAt(i) * scale);
+                noOfMeasurement.Add(scaledQuantity);//the calculated scaled quantity will be stored in a number of measurement list
+                ingredientQuantity.Add(newQuantity);//calculated ingredient quantity will be stored in the ingredient quantity list
 
             }
             Console.WriteLine("The recipe data was scaled successfully.");
@@ -143,10 +146,10 @@ namespace Prog_POE
 
             for (int i = 0; i < noOfIngredients; ++i)
             {
-                resetQuantity = noOfMeasurement[i] / scale;//this will devide the stored unit of measurement with the provided value on the method parameter
-                oldQuantity = ingredientQuantity[i] / scale;
-                noOfMeasurement[i] = resetQuantity;//the devided quantity will be stored in the unit of measurement array
-                ingredientQuantity[i] = (int)oldQuantity;//implicit data type casting
+                resetQuantity = noOfMeasurement.ElementAt(i) / scale;//this will divide the stored unit of measurement with the provided value on the method parameter
+                oldQuantity = ingredientQuantity.ElementAt(i) / scale;
+                noOfMeasurement.Add(resetQuantity);//the divided quantity will be stored in the unit of measurement list
+                ingredientQuantity.Add((int)oldQuantity);//implicit data type casting
             }
 
             Console.WriteLine("Quantity reset completed successfully.");
@@ -161,11 +164,12 @@ namespace Prog_POE
             {
                 noOfIngredients = 0;
                 noSteps = 0;
-                ingredientName[i] = clear;
-                stepDescription[i] = clear;
-                ingredientQuantity[i] = 0;
-                noOfMeasurement[i] = 0;
-                ingredientUnit[i] = clear;
+                ingredientName.RemoveAt(i);
+                stepDescription.RemoveAt(i);
+                ingredientQuantity.RemoveAt(i);
+                noOfMeasurement.RemoveAt(i);
+                ingredientUnit.RemoveAt(i);
+                stepDescription.RemoveAt(i);
             }
             Console.WriteLine("The recipe data was successfully cleared.");
 
@@ -174,7 +178,7 @@ namespace Prog_POE
         //this method will get the first recipe name
         public string getName()
         {
-            return recipeNames[0];
+            return recipeNames.First();//this will retriev the first element at the recipe names list
         }
 
     }

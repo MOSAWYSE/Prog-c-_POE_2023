@@ -32,7 +32,7 @@ namespace Prog_POE
             //this for lopp will print out the sorted recipe names
             for (int i = 0; i < sortedRecipes.Count; i++)
             {
-                Console.Write($"Recipe No.{i + 1} {sortedRecipes[i].getName()}\n");
+                Console.Write($"{i + 1}. {sortedRecipes[i].getName()}\n");
             }
 
             Console.WriteLine("\nEnter the number of the recipe to display:");
