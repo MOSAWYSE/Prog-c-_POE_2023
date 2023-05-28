@@ -68,8 +68,45 @@ namespace Prog_POE
         }
 
 
-       
+    }
 
+
+
+
+    public class alertUser
+    { 
+    
+      //delegate declaration
+        public delegate void calorieAlert(double totalCalories);
+            
+
+
+        public void checkCalorie(double recipeCalorie) 
+        {
+           
+            if(recipeCalorie >= 300) 
+            {
+              Console.WriteLine("The total recipe calorie exceeds 300 calories." );    
+            }
+
+
+         
+        }
+/*
+ * This will be the method that should be printing the delegate function
+        public void printDelegate(double recipeCalorie)
+        {
+            alertUser obj3 = new alertUser();
+
+            calorieAlert delVar1 = new calorieAlert();
+           // calorieAlert delVar1 = alertUser.checkCalorie(recipeCalorie);
+            //deleteFunction delVar1 = new deleteFunction(alertUser.checkCalorie(recipeCalorie);
+            delVar1();
+        }
+
+*/
 
     }
+
+
 }
