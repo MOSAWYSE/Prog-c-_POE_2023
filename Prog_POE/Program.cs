@@ -10,9 +10,14 @@ namespace Prog_POE
     {
         public static void Main(string[] args)
         {
-
+            ConsoleColor textColor = ConsoleColor.Black;
+            ConsoleColor consoleColor = ConsoleColor.Gray;
+            Console.BackgroundColor = consoleColor;
+            Console.ForegroundColor = textColor;
+            Console.Clear();
             displayRecipeInfo.startUpMenu();//this will print out the menu
 
+            //Console.Clear();
         }
     }
 

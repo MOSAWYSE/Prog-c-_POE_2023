@@ -97,8 +97,6 @@ namespace Prog_POE
         public void printRecipe()
         {
 
-        
-
             Console.WriteLine($"\n*********RECIPE RESULTS*************");
             Console.WriteLine($"\nRecipe Name >> {recipeName} \nNumber of ingredients : {noOfIngredients}");
 
@@ -106,9 +104,11 @@ namespace Prog_POE
             {
                 Console.WriteLine($"\nIngredient name: {ingredientName.ElementAt(i)} \nIngredient quantity : {ingredientQuantity.ElementAt(i)}\nIngredient unit of measurement : {noOfMeasurement.ElementAt(i)} {ingredientUnit.ElementAt(i)}\nIngredient calories:{caloriesClass.getCalories(i)}\nIngredient food group:{caloriesClass.getFoodGroup(i)}");
             }
-
+            
             //print total recipe calories
             Console.WriteLine($"\nTotal recipe calories: {caloriesClass.totalCalories1()}   (this is the total units of energy that the the recipe provides.)");
+            //this method will be invoking the total recipe calories delegate 
+            caloriesClass.alertingDelegate(caloriesClass.totalCalories1());//this will be my delegate
 
             //use the number of steps to display the steps and a for loop
             //this for loop will iterate through the array
@@ -118,7 +118,7 @@ namespace Prog_POE
                 Console.WriteLine($"\nStep {i + 1} description :{stepDescription.ElementAt(i)}. ");//this will display the step description
             }
 
-
+      
         }
 
         //this method will be used to scale the recipe of the captured ingredient
@@ -130,6 +130,8 @@ namespace Prog_POE
             {
                 scaledQuantity = noOfMeasurement.ElementAt(i) * scale;//this is the formula used to calculate the new scaled quantity with the scale in the argument
                 newQuantity = (int)(ingredientQuantity.ElementAt(i) * scale);
+                noOfMeasurement.RemoveAt(i);//this will remove the old stored unit of measurement of a recipe that is stored on the list
+                ingredientQuantity.RemoveAt(i);//this will remove the ingredient quantity that is stored on the list
                 noOfMeasurement.Add(scaledQuantity);//the calculated scaled quantity will be stored in a number of measurement list
                 ingredientQuantity.Add(newQuantity);//calculated ingredient quantity will be stored in the ingredient quantity list
 
@@ -148,6 +150,8 @@ namespace Prog_POE
             {
                 resetQuantity = noOfMeasurement.ElementAt(i) / scale;//this will divide the stored unit of measurement with the provided value on the method parameter
                 oldQuantity = ingredientQuantity.ElementAt(i) / scale;
+                noOfMeasurement.RemoveAt(i);//this will remove the old stored unit of measurement of a recipe that is stored on the list
+                ingredientQuantity.RemoveAt(i);//this will remove the ingredient quantity that is stored on the list
                 noOfMeasurement.Add(resetQuantity);//the divided quantity will be stored in the unit of measurement list
                 ingredientQuantity.Add((int)oldQuantity);//implicit data type casting
             }

@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+delegate void CalorieAlert(double totalCalories);//declaring the delegate method
+
 namespace Prog_POE
 {
+    
     public class ingredientCalories
     {
+        
         List<double> storedCalories = new List<double>();
+        List<double> storedTotalRecipeCalories = new List<double>();//this list will be storin g the total number of calories calculated of each recipe
          List<string> ingredientFoodGroup = new List<string>();//ingredient food group array list
         double totalCalories = 0.0;
         
@@ -43,7 +48,7 @@ namespace Prog_POE
             }
             else 
             {
-            
+                status = "correct calorie intake";
             }
             return status;
 
@@ -64,49 +69,34 @@ namespace Prog_POE
 
         public double totalCalories1()
         {
-            return storedCalories.Sum();
+            totalCalories = storedCalories.Sum();//this will assign varibale totalCalories with the total calories stored on the storedCalories list of each ingredient
+            storedTotalRecipeCalories.Add(totalCalories);//adding the calculated total calorie on the list
+            return totalCalories;
+        }
+
+        //this function will be printing the alert if the total number of calories exceeds 300
+        public void AlertUser(double totalCalories) 
+        {
+            Console.WriteLine("\nThe total number of recipe calories exceeds 300 calories." );
+             
         }
 
 
-    }
-
-
-
-
-    public class alertUser
-    { 
-    
-      //delegate declaration
-        public delegate void calorieAlert(double totalCalories);
-            
-
-
-        public void checkCalorie(double recipeCalorie) 
+        public void alertingDelegate(double total) 
         {
-           
-            if(recipeCalorie >= 300) 
+            CalorieAlert userAlert = null;
+            //this if statement will be checking if the total number of calories in a recipe exceeds 300 and if the delegate has not been used
+            if(total > 300 && userAlert == null)
             {
-              Console.WriteLine("The total recipe calorie exceeds 300 calories." );    
+                userAlert = AlertUser;//assigning the delegate to the AlertUser method
+                userAlert(total);//this will invoke the  AlertUser method and the method will check the total
             }
 
-
-         
-        }
-/*
- * This will be the method that should be printing the delegate function
-        public void printDelegate(double recipeCalorie)
-        {
-            alertUser obj3 = new alertUser();
-
-            calorieAlert delVar1 = new calorieAlert();
-           // calorieAlert delVar1 = alertUser.checkCalorie(recipeCalorie);
-            //deleteFunction delVar1 = new deleteFunction(alertUser.checkCalorie(recipeCalorie);
-            delVar1();
         }
 
-*/
 
     }
+
 
 
 }
