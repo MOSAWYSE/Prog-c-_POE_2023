@@ -12,16 +12,31 @@ This C# software is used to record and present recipe data.
 3. Into the project's "Program.cs" file, paste the code from the "recipe.cs" file.
 4. Compile and run the program.
 
+OR
+2. clone this project repository to download the project zip file
+3. The downloaded file will be named Prog_Poe.zip and you need to extract it 
+4. open the folder on the IDE 
+5. To run the program use the Program.cs file
 #Usage
 
-The quantity of ingredients to be captured must be entered when the application is run. You will be requested to enter the name, quantity, and unit of measurement of each item after entering the total number of ingredients.
-
+ The application will ask you to input the total number of recipes that needs to be captured and the quantity of ingredients to be captured must be entered when the application is running if the user has choosen to capture a new recipe data from the main menu. You will be requested to enter the name, quantity, and unit of measurement of each recipe ingredient after entering the total number of ingredients.
+ 
 The amount of steps in the recipe's instructions will thereafter be required of you. You'll be requested to type a description for each step.
 
 By using the printRecipe() method after you have collected all the necessary recipe information, you can see it in action. In addition to the step explanations, this will list the ingredients' names, quantities, and units of measurement.
 
 You can scale the recipe by using the'scaleRecipe(double scale)' method and providing the desired scale as a parameter. Using this technique, the recipe data will be updated together with the new quantities determined using the scale. By using the'resetQuantity()' method, you can finally return the ingredient quantities to their initial values.
 
+The application has a printing feature that will display the stored recipes alphabetically, this feature can be accessed using the second number on the main menu.
+The printing feature will be using a delegate to alert the user if the total number of the recipe calories has exceeded 300.
+
+#Testing
+The unit testing of this software requires some extra installation of IDE extensions to be able to run properly without errors. On the IDE console you need to write specific commands that will import needed libraries to begin with the testing which are as follows:
+$dotnet add Microsoft.NET.tESTsdk
+$dotnet new Nunit
+$dotnet add Nunit3TestAdapter
+
+You will need to make sure that the nUnit test adapater is installed by navigating to the 'extensions' tab and choose 'manage extensions' and search for 'nUnit test adapater' and install the testing adapater.
 
 
 Project Github repository link: https://github.com/MOSAWYSE/Prog-c-_POE_2023
