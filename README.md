@@ -38,6 +38,11 @@ $dotnet add Nunit3TestAdapter
 
 You will need to make sure that the nUnit test adapater is installed by navigating to the 'extensions' tab and choose 'manage extensions' and search for 'nUnit test adapater' and install the testing adapater.
 
+#Changes
+On this program i used the generic collections to store the recipe data. I updated the recipe printing method to display the recipes alphabetically and modified the software to allow multiple number of recipes. The user is now able to enter a name of a recipe and store it in memory.
+This enable users to be able to choose which recipe data they wish to display based on the recipe names stored. I added new functions on the recipe class to allow users to be able to input number of recipe calories and the food group of the ingredient. The software now can print the total number of calories that are on a single recipe and it will notify the user if the recipe calories exceed 300.
+
+
 
 Project Github repository link: https://github.com/MOSAWYSE/Prog-c-_POE_2023
 
