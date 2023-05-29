@@ -12,7 +12,7 @@ namespace Prog_POE
     public class ingredientCalories
     {
         
-        List<double> storedCalories = new List<double>();
+       public List<double> storedCalories = new List<double>();
         List<double> storedTotalRecipeCalories = new List<double>();//this list will be storin g the total number of calories calculated of each recipe
          List<string> ingredientFoodGroup = new List<string>();//ingredient food group array list
         double totalCalories = 0.0;

@@ -64,7 +64,7 @@ namespace Prog_POE
         {
 
 
-            Console.WriteLine("\n**************RECIPE CONSOLE APP*************\n1.Capture new recipe data.\n2.Display recipe data. \n3.Scale the recipe. \n4.Reset recipe quanities to original values.\n5.Clear the recipe data.\n6.Display recipe data alphabetically.\n7.Exit the application.\nYour selection :");
+            Console.WriteLine("\n**************RECIPE CONSOLE APP*************\n1.Capture new recipe data.\n2.Display recipe data. \n3.Scale the recipe. \n4.Reset recipe quanities to original values.\n5.Clear the recipe data.\n6.Exit the application.\nYour selection :");
             string option = Console.ReadLine();//this string will be capturing the function that the user wants to use
 
             switch (option)
@@ -94,9 +94,11 @@ namespace Prog_POE
                         try
                         {//this for each loop will iterate through the newRecipe array list to print all the recipe details
                             foreach (recipe myRecipe in newRecipe)
-                            {
-                                myRecipe.printRecipe();//print each recipe data
+                            {//this method will display the recipes alphabetically
+                                displayRecipeAlphabetically();//print each recipe data
                             }
+                            
+                            
 
                             startUpMenu();//display main menu
                         }
@@ -164,14 +166,6 @@ namespace Prog_POE
                     } //clear the recipe data 
 
                 case "6":
-                    {
-                        //this method will display the recipes alphabetically
-                        displayRecipeAlphabetically();
-                        startUpMenu();
-                        break;
-
-                    }
-                case "7":
                     {
                         System.Environment.Exit(0);//Exit app
                         break;

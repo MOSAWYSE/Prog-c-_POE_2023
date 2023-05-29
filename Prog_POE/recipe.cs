@@ -125,17 +125,25 @@ namespace Prog_POE
         public void scaleRecipe(double scale)
         {
             double scaledQuantity;//this variable will be storing the scaled quanity temporary
-            int newQuantity;
+            double newQuantity;
+            double scaledCalorie;
             for (int i = 0; i < noOfIngredients; ++i)
             {
                 scaledQuantity = noOfMeasurement.ElementAt(i) * scale;//this is the formula used to calculate the new scaled quantity with the scale in the argument
-                newQuantity = (int)(ingredientQuantity.ElementAt(i) * scale);
+                newQuantity = ingredientQuantity.ElementAt(i) * scale;
+                scaledCalorie = caloriesClass.getCalories(i) * scale;
                 noOfMeasurement.RemoveAt(i);//this will remove the old stored unit of measurement of a recipe that is stored on the list
                 ingredientQuantity.RemoveAt(i);//this will remove the ingredient quantity that is stored on the list
-                noOfMeasurement.Add(scaledQuantity);//the calculated scaled quantity will be stored in a number of measurement list
-                ingredientQuantity.Add(newQuantity);//calculated ingredient quantity will be stored in the ingredient quantity list
+               caloriesClass.storedCalories.RemoveAt(i);//this will remove the stored calorie number of a ingredient in a list 
 
+
+                noOfMeasurement.Add(scaledQuantity);//the calculated scaled quantity will be stored in a number of measurement list
+                ingredientQuantity.Add((int)newQuantity);//calculated ingredient quantity will be stored in the ingredient quantity list
+                caloriesClass.storedCalories.Add(scaledCalorie);//the calculated sclaed calorie will be stored on the list
+
+               
             }
+
             Console.WriteLine("The recipe data was scaled successfully.");
 
         }
@@ -145,16 +153,24 @@ namespace Prog_POE
         {
             double resetQuantity;//this variable will be storing the reseted quantities
             double oldQuantity;
+            double oldCalorie;
+
 
             for (int i = 0; i < noOfIngredients; ++i)
             {
                 resetQuantity = noOfMeasurement.ElementAt(i) / scale;//this will divide the stored unit of measurement with the provided value on the method parameter
                 oldQuantity = ingredientQuantity.ElementAt(i) / scale;
+                oldCalorie = caloriesClass.getCalories(i) / scale;
                 noOfMeasurement.RemoveAt(i);//this will remove the old stored unit of measurement of a recipe that is stored on the list
                 ingredientQuantity.RemoveAt(i);//this will remove the ingredient quantity that is stored on the list
+                caloriesClass.storedCalories.RemoveAt(i);
+
+
                 noOfMeasurement.Add(resetQuantity);//the divided quantity will be stored in the unit of measurement list
                 ingredientQuantity.Add((int)oldQuantity);//implicit data type casting
+                caloriesClass.storedCalories.Add(oldCalorie);
             }
+            
 
             Console.WriteLine("Quantity reset completed successfully.");
         }
