@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RecipeGui;
 
 namespace Prog_POE
 {
@@ -19,7 +20,7 @@ namespace Prog_POE
         List<int> ingredientQuantity = new List<int>();//this list will be storing the ingredient quantity
         List<double> noOfMeasurement = new List<double>();//this list will be storing the number of the unit of measurement
 
-        ingredientCalories caloriesClass = new ingredientCalories();
+        ingredientCalories caloriesClass = new ingredientCalories();//fix this 
 
         public void captureInfo()
         {

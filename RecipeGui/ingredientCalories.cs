@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 delegate void CalorieAlert(double totalCalories);//declaring the delegate method
 
@@ -16,21 +17,37 @@ namespace RecipeGui
         List<double> storedTotalRecipeCalories = new List<double>();//this list will be storin g the total number of calories calculated of each recipe
          List<string> ingredientFoodGroup = new List<string>();//ingredient food group array list
         double totalCalories = 0.0;
-        
+
+        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;//this will get the main window xaml class
+
         public void captureCalories() 
         {
-            Console.WriteLine("Enter the number of the ingredient calories.");
-            double calories = double.Parse(Console.ReadLine());
-            storedCalories.Add(calories);
+
+            string calorie = Microsoft.VisualBasic.Interaction.InputBox("Enter the number of ingredient calories","Ingredient Calorie");//this will prompt the user to input calories
+            double calories = double.Parse(calorie);//the string calorie will be converted into a double data type to make calculations
+            storedCalories.Add(calories);//the double calorie will be stored on the calories list
         }
 
 
-        public void captureFoodGroup() 
+        public void captureFoodGroup()  
         {
+
+          
+
+            string foodGroup = mainWindow.ingredientFoodGroup.SelectedItem.ToString();//this will retrieve the selected item
             
-            Console.WriteLine("\nFOOD GROUPS\n1.Grains (more nutrients)\n2.Vegetables (more nutrients)\n3.Fruits (less nutrients)\n4.Proteins (more nutrients)\n5.Dairy (less nutrient)\nEnter the ingredient food group:");
-            string foodGroup = Console.ReadLine();
-            ingredientFoodGroup.Add(foodGroup);
+            if(foodGroup == null) 
+            {
+                MessageBox.Show("The food group is empty check it","Food Group Is Empty");
+
+            }
+            else 
+            {
+                foodGroup = foodGroup.Substring(36);
+                ingredientFoodGroup.Add(foodGroup);//the food group will be saved to the ingredient food group
+            }
+
+           
             
         }
 
@@ -69,7 +86,7 @@ namespace RecipeGui
 
         public double totalCalories1()
         {
-            totalCalories = storedCalories.Sum();//this will assign varibale totalCalories with the total calories stored on the storedCalories list of each ingredient
+            totalCalories = storedCalories.Sum();//this will assign the variable totalCalories with the total calories stored on the storedCalories list of each ingredient
             storedTotalRecipeCalories.Add(totalCalories);//adding the calculated total calorie on the list
             return totalCalories;
         }
@@ -77,7 +94,7 @@ namespace RecipeGui
         //this function will be printing the alert if the total number of calories exceeds 300
         public void AlertUser(double totalCalories) 
         {
-            Console.WriteLine("\nThe total number of recipe calories exceeds 300 calories." );
+            MessageBox.Show("\nThe total number of recipe calories exceeds 300 calories." );
              
         }
 
