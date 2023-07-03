@@ -25,7 +25,7 @@ namespace RecipeGui
     {
         private recipe Recipe;
         private static List<recipe> newRecipe = new List<recipe>();//this will be the recipe list that will be storing  the recipe data
-        displayRecipeInfo obj = new displayRecipeInfo();
+         displayRecipeInfo obj = new displayRecipeInfo();
 
         public MainWindow()
         {
@@ -60,7 +60,7 @@ namespace RecipeGui
         //this function will be handling the print recipe data function
         private void printButton(object sender, RoutedEventArgs e)
         {
-            Recipe.printRecipe();
+            Recipe.printRecipe();// this will printout the normal recipe data
 
             try
             {//this for each loop will iterate through the newRecipe array list to print all the recipe details
@@ -69,7 +69,7 @@ namespace RecipeGui
                     obj.displayRecipeAlphabetically();//print each recipe data
                 }
 
-                this.Show();//this should open another window
+               
             }
             catch (Exception er)
             {
@@ -81,7 +81,7 @@ namespace RecipeGui
 
         private void scaleButton(object sender, RoutedEventArgs e) //this function will be handling the recipe scaling
         {
-            //Recipe.scaleRecipe();
+           // Recipe.scaleRecipe();
             //this foreach loop will scale the recipes stored in the array list
             foreach (recipe myRecipe in newRecipe)
             {
