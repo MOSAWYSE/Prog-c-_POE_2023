@@ -11,8 +11,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            
+            <Button x:Name="PrintChart" Content="Print pie chart" Click="PrintChart"/>
         </StackPanel>
+        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Height="780" Margin="1192,334,0,0" VerticalAlignment="Top" Width="416"/>
 
 
     </Grid>
