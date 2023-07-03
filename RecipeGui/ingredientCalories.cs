@@ -36,6 +36,7 @@ namespace RecipeGui
 
             string foodGroup = mainWindow.ingredientFoodGroup.SelectedItem.ToString();//this will retrieve the selected item
             
+
             if(foodGroup == null) 
             {
                 MessageBox.Show("The food group is empty check it","Food Group Is Empty");
